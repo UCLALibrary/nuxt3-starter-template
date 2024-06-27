@@ -157,7 +157,7 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: [`nuxt-graphql-request`, [
+  modules: ['nuxt-graphql-request', [
     '@pinia/nuxt',
     {
       autoImports: ['defineStore', 'acceptHMRUpdate'],

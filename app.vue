@@ -1,11 +1,9 @@
 <script setup>
 
-
 const { enabled, state } = usePreviewMode()
 
 const globalStore = useGlobalStore()
 
-console.log("app.vue fetch header, footer, globals")
 const { data, error } = await useFetch('/api/fetchLayout')
 globalStore.header.primary = data.value.primary
 globalStore.header.secondary = data.value.secondary
@@ -21,8 +19,6 @@ if (data.value) {
   globalStore.globals = craftData
 }
 
-// const { data: layout } = useNuxtData('layout');
-// console.log("app.vue layout from useNuxtData", layout.value)
 </script>
 <template>
   <div>

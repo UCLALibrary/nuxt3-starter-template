@@ -67,8 +67,8 @@ const query = `
 export default defineEventHandler(async (event) => {
   const endpoint = useRuntimeConfig().public.craftGraphqlURL
 
-  //const keys = await useStorage().getKeys()
-  const hasItem = await useStorage().hasItem("nuxtStarter:layout")
+  // const keys = await useStorage().getKeys()
+  const hasItem = await useStorage().hasItem('nuxtStarter:layout')
   console.log('Server api storage key exists:' + hasItem)
   let layoutData = await useStorage().getItem('nuxtStarter:layout')
   if (!layoutData) {
@@ -77,15 +77,13 @@ export default defineEventHandler(async (event) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query: query })
+      body: JSON.stringify({ query })
     })
     await useStorage().setItem('nuxtStarter:layout', data)
     layoutData = data
     console.log('Server api Global Data object first set and then get:' + JSON.stringify(layoutData))
     return layoutData
-    
-  } else{
+  } else {
     return layoutData
   }
-  
 })

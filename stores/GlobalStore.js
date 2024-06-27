@@ -9,10 +9,10 @@ export const useGlobalStore = defineStore('GlobalStore', {
       secondary: []
     },
     footerPrimary: {
-      nodes:[]
+      nodes: []
     },
     footerSock: {
-      nodes:[]
+      nodes: []
     }
     /* _token: "",
         _user: {}, */
