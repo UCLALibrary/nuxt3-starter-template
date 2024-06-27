@@ -1,4 +1,11 @@
 <template>
-  <h1> Hello Nuxt3 starter</h1>
-  <divider-way-finder color="visit" />
+  <div>
+    <DividerWayFinder color="visit" />
+    This is a home page
+    <DividerGeneral />
+  </div>
 </template>
+
+<script setup>
+import { DividerWayFinder, DividerGeneral } from 'ucla-library-website-components'
+</script>

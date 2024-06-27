@@ -1,0 +1,40 @@
+#import "../gql/fragments/MenuItem.gql"
+
+query Layout {
+    secondary: nodes(navHandle: "secondaryMenu", level: 1) {
+        ...MenuItem
+    }
+    primary: nodes(navHandle: "primaryMenu", level: 1) {
+        ...MenuItem
+        children {
+            ...MenuItem
+        }
+    }
+    globalSets {
+        dataId: id
+        handle
+
+        ... on askALibrarian_GlobalSet {
+            askALibrarianTitle: titleGeneral
+            askALibrarianText: summary
+            buttonUrl {
+                buttonText
+                buttonUrl
+            }
+        }
+
+        ... on libraryAlert_GlobalSet {
+            title: entryTitle
+            text: richTextAlertBox
+        }
+    }
+    footerPrimary: nodes(navHandle: "footerPrimary", level: 1) {
+        ...MenuItem
+        children {
+            ...MenuItem
+        }
+    }
+    footerSock: nodes(navHandle: "footerSockLinks") {
+        ...MenuItem
+    }
+}

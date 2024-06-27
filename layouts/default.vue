@@ -1,4 +1,6 @@
 <script setup>
+// components need to be imported for nitro crawling in static mode
+import { HeaderSmart, SectionWrapper, SiteNotificationAlert, FooterPrimary, FooterSock } from 'ucla-library-website-components'
 import { onMounted } from 'vue'
 
 useHead({
@@ -68,11 +70,8 @@ onMounted(async () => {
 
 <template>
   <div :class="classes">
-    <!-- VueSkipTo to="#main" label="Skip to main content" / -->
-    <!-- this is not working in static build -->
-    <header-smart v-if="globalStore.header" />
-
-    <section-wrapper
+    <HeaderSmart v-if="globalStore.header" />
+    <SectionWrapper
       class="section-alert"
       theme="divider"
     >
@@ -81,25 +80,22 @@ onMounted(async () => {
         class="library-alert"
         v-bind="libraryAlert"
       />
-    </section-wrapper>
+    </SectionWrapper>
 
     <slot />
 
     <footer>
-      <footer-primary
+      <FooterPrimary
         v-if="globalStore.footerPrimary"
         :form="true"
       />
-      <footer-sock v-if="globalStore.footerSock" />
+      <FooterSock v-if="globalStore.footerSock" />
     </footer>
     <div id="libchat_5a44dfe7cc29aaee5bba635ab13fa753" />
   </div>
 </template>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .layout-default {
   min-height: 100vh;
 
