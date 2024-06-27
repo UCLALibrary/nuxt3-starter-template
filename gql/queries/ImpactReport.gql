@@ -1,0 +1,79 @@
+#import "../gql/fragments/Image.gql"
+#import "../gql/fragments/collections/ImpactReportFpb.gql"
+
+query ImpactReport($path: [String!]) {
+  entry(section: "impactReport", uri: $path, orderBy:"postDate desc") {
+    ... on impactReport_impactReport_Entry {
+      id
+      sectionHandle
+      uri
+      slug
+      title
+      to: uri
+      portrait: image {
+        ...Image
+      }
+      text: richText
+      keyArt {
+        ... on keyArt_keyArt_BlockType {
+          titleGeneral
+          summary
+          buttonText
+          buttonUrl
+          heroImage {
+            ... on mediaAndDocuments_Asset {
+              ...Image
+            }
+          }
+        }
+      }
+
+      ...ImpactReportFpb
+
+      timelineTitle: titleGeneral
+      timelineGallery: impactReportTimeline {
+        ... on impactReportTimeline_gridGalleryCards_BlockType {
+          id
+          subtitle: titleGeneral
+          summary
+          gridGalleryCards {
+            ... on gridGalleryCards_internalContent_BlockType {
+              id
+              featured
+              contentLink {
+                contentType: sectionHandle
+                headlineText: title
+                snippet: summary
+                to: uri
+                heroImage {
+                  ... on heroImage_heroImage_BlockType {
+                    image {
+                      ...Image
+                    }
+                  }
+                }
+              }
+            }
+            ... on gridGalleryCards_externalContent_BlockType {
+              id
+              featured
+              to: externalLink
+              headlineText: titleGeneral
+              snippet: summary
+              image {
+                ...Image
+              }
+            }
+          }
+        }
+      }
+      acknowledgements {
+        ... on acknowledgements_richTextWithSectionTitle_BlockType {
+          titleGeneral
+          acknowledgements
+          displaySectionTitle
+        }
+      }
+    }
+  }
+}

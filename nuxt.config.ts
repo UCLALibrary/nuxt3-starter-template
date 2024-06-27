@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-
 export default defineNuxtConfig({
+  devtools: { enabled: true },
   // when using local pnpm link with component library uncomment this line
   vite: {
     // ADDED FOLLOWING LINE TO RESOLVE CROSS-FETCH ERROR
@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: ` 
+          additionalData: `
                         @import "ucla-library-design-tokens/scss/fonts.scss";
                         @import "ucla-library-design-tokens/scss/app.scss";
                     `,
@@ -29,7 +29,6 @@ export default defineNuxtConfig({
       },
     }
   },
-
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -39,7 +38,7 @@ export default defineNuxtConfig({
       // routes: ['/', '/404.html', '/200.html'],
     },
     hooks: {
-      'prerender:generate' (route) {
+      'prerender:generate'(route) {
         // TODO: fix issue with recursive fetches with query string, e.g.
         // `/enterprise/agencies?region=europe&amp;amp;amp;service=ecommerce&amp;amp;service=ecommerce&amp;service=content-marketing`
         /* if (route.route?.includes('&amp;')) {
@@ -47,8 +46,8 @@ export default defineNuxtConfig({
         } */
         // console.log('prerender:generate', route)
       },
-      async 'prerender:routes' (routes) {
-        const allRoutes = []
+      'prerender:routes'(routes) {
+        /* const allRoutes = []
 
         const response = await fetch(process.env.CRAFT_ENDPOINT, {
           headers: {
@@ -74,13 +73,12 @@ export default defineNuxtConfig({
           for (const route of allRoutes) {
             routes.add(route)
           }
-        }
+        } */
         console.log('prerender:routes ctx.routes', routes)
       }
     },
 
   },
-
   runtimeConfig: {
     // Private keys are only available on the server
     esWriteKey: process.env.ES_WRITE_KEY,
@@ -101,12 +99,14 @@ export default defineNuxtConfig({
         || 'https://proxy.calendar.library.ucla.edu/',
       esTempIndexPrefixLibguides: process.env.ES_TEMP_INDEX_PREFIX_LIBGUIDES || '',
       esTempIndexLibguides: '',
+      gtm: {
+        id: 'GTM-T2SXV2'
+      }
     },
   },
-
   /*
-     ** Required charset and viewport meta tags
-     */
+       ** Required charset and viewport meta tags
+       */
   app: {
     head: {
       htmlAttrs: {
@@ -121,6 +121,11 @@ export default defineNuxtConfig({
         },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    },
+
+    pageTransition: {
+      name: 'fade',
+      mode: 'out-in',
     },
   },
 
@@ -139,18 +144,6 @@ export default defineNuxtConfig({
   typescript: {
     strict: false
   },
-
-  modules: [[
-    '@pinia/nuxt',
-    {
-      autoImports: ['defineStore', 'acceptHMRUpdate'],
-    },
-  ], 'nuxt-graphql-request', '@nuxtjs/sitemap'],
-
-  build: {
-    transpile: ['nuxt-graphql-request'],
-  },
-
   site: {
     url: process.env.SITEMAP_HOST || 'https://www.library.ucla.edu',
   },
@@ -162,6 +155,16 @@ export default defineNuxtConfig({
       // for your users, but the issue is probably only replicable in your monorepo
       exclude: [/\bsfui\b/]
     }
+  },
+
+  modules: ['nuxt-graphql-request', [
+    '@pinia/nuxt',
+    {
+      autoImports: ['defineStore', 'acceptHMRUpdate'],
+    },
+  ], '@nuxtjs/sitemap', '@zadigetvoltaire/nuxt-gtm'],
+  build: {
+    transpile: ['nuxt-graphql-request'],
   },
 
   graphql: {
@@ -180,7 +183,10 @@ export default defineNuxtConfig({
          */
         options: {},
       },
-
+      secondClient: {
+        // ...client config
+      },
+      // ...your other clients
     },
 
     /**
@@ -193,19 +199,11 @@ export default defineNuxtConfig({
 
     /**
      * Optional
-     * default: false (this includes cross-fetch/polyfill before creating the graphql client)
-     */
-    // useFetchPolyfill: true,
-
-    /**
-     * Optional
      * default: false (this includes graphql-tag for node_modules folder)
      */
-    // includeNodeModules: true,
+    includeNodeModules: true,
   },
-
-  /* experimental: {
-    payloadExtraction: true,
+  experimental: {
     sharedPrerenderData: true
-  } */
+  }
 })

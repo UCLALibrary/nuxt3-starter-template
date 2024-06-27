@@ -4,9 +4,16 @@ export const useGlobalStore = defineStore('GlobalStore', {
     winWidth: 0,
     sTop: 0,
     globals: {},
-    header: {},
-    footerPrimary: {},
-    footerSock: {}
+    header: {
+      primary: [],
+      secondary: []
+    },
+    footerPrimary: {
+      nodes: []
+    },
+    footerSock: {
+      nodes: []
+    }
     /* _token: "",
         _user: {}, */
   }),

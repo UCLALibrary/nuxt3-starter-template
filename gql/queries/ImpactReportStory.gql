@@ -1,0 +1,45 @@
+#import "../gql/fragments/collections/AllFpb.gql"
+#import "../gql/fragments/Image.gql"
+
+query ImpactReportStory($slug: [String!]) {
+    entry(section: "impactReportStory", slug: $slug) {
+        ... on impactReportStory_impactReportStory_Entry {
+            id
+            sectionHandle
+            slug
+            uri
+            title
+            text: summary
+            uri
+            contributors {
+                ... on contributors_staffMember_BlockType {
+                    typeHandle
+                    byline
+                    staffMember {
+                        title
+                        uri
+                        id
+                    }
+                }
+                ... on contributors_externalContributor_BlockType {
+                    id
+                    byline
+                    typeHandle
+                    title: contributor
+                }
+            }
+            heroImage {
+                ... on heroImage_heroImage_BlockType {
+                    image {
+                        ...Image
+                    }
+                }
+            }
+            ...AllFpb
+        }
+    }
+}
+
+# query ImpactReportStory {
+#  entry(section: "impactReportStory", uri: "impact/2022/test-main-story") {
+# and uri: "impact/2021/ucla-library-reimagined") {

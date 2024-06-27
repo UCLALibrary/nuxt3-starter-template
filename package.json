@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "nuxt3-starter-template",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
@@ -17,8 +17,10 @@
     "test": "pnpm lint && pnpm typecheck"
   },
   "dependencies": {
-    "nuxt": "^3.11.2",
-    "@pinia/nuxt": "^0.5.1"
+    "@vue-a11y/skip-to": "^3.0.3",
+    "nuxt": "^3.12.2",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",
@@ -26,16 +28,17 @@
     "@nuxtjs/sitemap": "^5.1.1",
     "@percy/cli": "^1.27.0",
     "@percy/cypress": "^3.1.2",
+    "@pinia/nuxt": "^0.5.1",
     "@types/node": "^18.17.3",
+    "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
     "cypress": "^12.17.4",
     "date-fns": "^3.6.0",
     "eslint": "^8.56.0",
     "eslint-plugin-cypress": "^2.15.1",
-    "graphql": "^16.8.1",
     "lodash": "^4.17.21",
-    "nuxt-graphql-request": "^7.0.5",
+    "nuxt-graphql-request": "^8.1.0",
     "sass": "^1.66.1",
     "ucla-library-design-tokens": "^5.12.6",
-    "ucla-library-website-components": "2.39.0-alpha.80"
+    "ucla-library-website-components": "2.39.0-alpha.86"
   }
 }
